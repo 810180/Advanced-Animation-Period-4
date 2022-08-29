@@ -11,13 +11,14 @@ function JSVector(x = 0,y = 0){
 // Set the magnitude of the vector,
 // retaining the angle (direction).
 JSVector.prototype.setMagnitude = function(mag){
-
+    this.x = mag * Math.cos(this.x/this.getMagnitude());
+    this.y = mag * Math.sin(this.y/this.getMagnitude());
     return this;
 }
 
 // Return the magnitude of the vector using pythagorean theorem
 JSVector.prototype.getMagnitude = function(){
-
+    return Math.sqrt((this.x * this.x) + (this.y * this.y));
  }
 
 // Set the angle (direction) of the vector,
@@ -29,7 +30,7 @@ JSVector.prototype.setDirection = function(angle){
 
 // Return the direction (angle) of the vector
 JSVector.prototype.getDirection = function(){
-
+    return Math.atan2(this.x/this.y);
 }
 
 // Add another vector to this vector
