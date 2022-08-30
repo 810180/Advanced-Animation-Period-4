@@ -28,9 +28,7 @@ Ball.prototype.render = function () {
 }
 
 Ball.prototype.update = function () {
-
 }
 
 Ball.prototype.bounce = function () {
-
 }
