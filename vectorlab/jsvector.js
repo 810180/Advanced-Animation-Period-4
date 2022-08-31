@@ -106,7 +106,7 @@ JSVector.prototype.distanceSquared = function(v2){
 // using the rotation matrix |  cos   -sin  |
 //                           |  sin   +cos  |
 JSVector.prototype.rotate = function(angle) {
-
+    this.setDirection(this.getDirection()+angle);//How to matrixes
     return this;
 }
 
@@ -122,5 +122,5 @@ JSVector.prototype.copy = function(){
 
 // Override inherited toString() to return a description of this instance
 JSVector.prototype.toString = function() {
-
+    return "Magnitude:" + this.getMagnitude() + "\n Direction:" + this.getDirection() + "\n X value" + this.x + "\n Y value" + this.y;
 }
