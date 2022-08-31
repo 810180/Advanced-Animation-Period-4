@@ -11,8 +11,9 @@ function JSVector(x = 0,y = 0){
 // Set the magnitude of the vector,
 // retaining the angle (direction).
 JSVector.prototype.setMagnitude = function(mag){
-    this.x = mag * Math.cos(this.x/this.getMagnitude());
-    this.y = mag * Math.sin(this.y/this.getMagnitude());
+    let d = this.getDirection();
+    this.x = mag * Math.cos(d);
+    this.y = mag * Math.sin(d);
     return this;
 }
 
@@ -24,8 +25,9 @@ JSVector.prototype.getMagnitude = function(){
 // Set the angle (direction) of the vector,
 // retaining the magnitude.
 JSVector.prototype.setDirection = function(angle){
-    let mag = this.getMagnitude();
-    
+    let Cmag = this.getMagnitude();
+    //get x and y of angle value(cosine and sine/magnitude) set x and y value to that
+    let Cx = Math.cos(angle)/this.getmMagnitude
     return this;
 }
 
