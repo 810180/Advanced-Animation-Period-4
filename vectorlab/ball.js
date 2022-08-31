@@ -28,7 +28,28 @@ Ball.prototype.render = function () {
 }
 
 Ball.prototype.update = function () {
+  this.vel.add(this.acc);
+  this.loc.add(this.vel);
 }
 
 Ball.prototype.bounce = function () {
+  if(this.loc.y > canvas.height){
+    this.vel.y = this.vel.y * (-1)
+  } else if(this.loc.y<0){//saftey else statement to keep it from exceeding the top of the canvas
+    this.vel.y = 1;
+  }
+  if(this.loc.y > canvas.height+5){
+    this.loc.y = 0;
+  }
+  // morph code 
+  // if((this.loc.y) > canvas.height+30){
+  //   this.loc.y = -30;
+  // } else if(this.loc.y < -30){
+  //   this.loc.y = canvas.height+30;
+  // }
+  if((this.loc.x) > canvas.width+30){
+    this.loc.x = -30;
+  } else if(this.loc.x < -30){
+    this.loc.x = canvas.width+30;
+  }
 }

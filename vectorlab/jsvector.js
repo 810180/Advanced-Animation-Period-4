@@ -40,15 +40,15 @@ JSVector.prototype.getDirection = function(){
 
 // Add another vector to this vector
 JSVector.prototype.add = function(v2){
-    this.x += v2.loc.x; 
-    this.y += v2.loc.y;
+    this.x += v2.x; 
+    this.y += v2.y;
     return this;
 }
 
 // Subtract another vector from this vector
 JSVector.prototype.sub = function(v2){
-    this.x -= v2.loc.x;
-    this.y -= v2.loc.y;
+    this.x -= v2.x;
+    this.y -= v2.y;
     return this;
 }
 
