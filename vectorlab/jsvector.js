@@ -27,6 +27,9 @@ JSVector.prototype.getMagnitude = function(){
 JSVector.prototype.setDirection = function(angle){
     let Cmag = this.getMagnitude();
     //get x and y of angle value(cosine and sine/magnitude) set x and y value to that
+    //magnitude times cosine or sine of angle
+    this.x = Cmag * Math.cos(angle);
+    this.y = Cmag * Math.sin(angle);
     return this;
 }
 
@@ -37,58 +40,66 @@ JSVector.prototype.getDirection = function(){
 
 // Add another vector to this vector
 JSVector.prototype.add = function(v2){
-
+    this.x += v2.loc.x; 
+    this.y += v2.loc.y;
     return this;
 }
 
 // Subtract another vector from this vector
 JSVector.prototype.sub = function(v2){
-
+    this.x -= v2.loc.x;
+    this.y -= v2.loc.y;
     return this;
 }
 
 // Class method to return a new vector that is the sum of two vectors
 JSVector.addGetNew = function(v1,v2){
-
+    let output = new JSVector(v1.loc.x+v2.loc.x,v1.loc.y+v2.loc.y);
+    return output;
 }
 
 // Class method to return a new vector that is the difference of two vectors
 JSVector.subGetNew = function(v1,v2){
-
+    let output = new JSVector(v1.loc.x-v2.loc.x,v1.loc.y-v2.loc.y);
+    return output;
 }
 
 // Multiply this vector by a scalar
 JSVector.prototype.multiply = function(scalar){
-
+    this.x *= scalar;
+    this.y *= scalar;
     return this;
 }
 
 // Divide this vector by a scalar
 JSVector.prototype.divide = function(scalar){
-
+    this.x /= scalar;
+    this.y /= scalar;
     return this;
 }
 
 // Normalize this vector so that it has a magnitude of 1
 JSVector.prototype.normalize = function(){
-
+    this.setMagnitude(1);
     return this;
 }
 
 // Limit the magnitude of this vector
 JSVector.prototype.limit = function(lim){
-
+    if(this.getMagnitude() > lim){
+        this.setMagnitude(lim);
+    }
     return this;
 }
 
 // Return the distance between this vector and another one
 JSVector.prototype.distance = function(v2){
-
+    return Math.sqrt(Math.pow((v2.loc.x-this.x),2)+Math.pow((v2.loc.y-this.y),2));
 }
 
 // Return the square of the distance between this vector and another one
 JSVector.prototype.distanceSquared = function(v2){
-
+    return Math.pow(distance(v2));
 }
 
 // Rotate this vector by some number of radians
@@ -101,12 +112,12 @@ JSVector.prototype.rotate = function(angle) {
 
 // Return the angle between this vector and another one
 JSVector.prototype.angleBetween = function(v2){
-
+    return this.getDirection() - v2.loc.getDirection();
 }
 
 // Return a copy of this vector
 JSVector.prototype.copy = function(){
-
+    return new JSVector(this.x,this.y);
 }
 
 // Override inherited toString() to return a description of this instance
