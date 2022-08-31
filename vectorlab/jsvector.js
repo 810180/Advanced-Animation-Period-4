@@ -27,13 +27,12 @@ JSVector.prototype.getMagnitude = function(){
 JSVector.prototype.setDirection = function(angle){
     let Cmag = this.getMagnitude();
     //get x and y of angle value(cosine and sine/magnitude) set x and y value to that
-    let Cx = Math.cos(angle)/this.getmMagnitude
     return this;
 }
 
 // Return the direction (angle) of the vector
 JSVector.prototype.getDirection = function(){
-    return Math.atan2(this.x/this.y);
+    return Math.atan2(this.y,this.x);
 }
 
 // Add another vector to this vector
