@@ -13,6 +13,7 @@ function Ball(x, y, d) {
 
 Ball.prototype.run = function () {
   this.render();
+  this.collision();
   this.update();
   this.bounce();
 }
@@ -29,27 +30,47 @@ Ball.prototype.render = function () {
 
 Ball.prototype.update = function () {
   this.vel.add(this.acc);
+  if(this.vel.x>6){//not necissary, happens if the balls bounce horizontally too fast
+    this.vel.x -=1;
+  }
+  if(this.vel.x>=20){
+    this.vel.x = 20;
+  }
   this.loc.add(this.vel);
 }
 
 Ball.prototype.bounce = function () {
-  if(this.loc.y > canvas.height){
+  if(this.loc.y > canvas.height-(this.diam/2)){//"bounces" ball
     this.vel.y = this.vel.y * (-1)
   } else if(this.loc.y<0){//saftey else statement to keep it from exceeding the top of the canvas
-    this.vel.y = 1;
-  }
-  if(this.loc.y > canvas.height+5){
+    if(this.vel.y>15){
+      this.vel.y = 15;
+    }
     this.loc.y = 0;
+    this.vel.y /= 10;
+    this.vel.y = 1 * Math.abs(this.vel.y)
   }
-  // morph code 
-  // if((this.loc.y) > canvas.height+30){
-  //   this.loc.y = -30;
-  // } else if(this.loc.y < -30){
-  //   this.loc.y = canvas.height+30;
-  // }
-  if((this.loc.x) > canvas.width+30){
+  if(this.loc.y > canvas.height+10){
+    this.vel.y = -10;
+    this.loc.y = canvas.height-20;
+  }
+  if((this.loc.x) > canvas.width+this.diam){//moves ball to the other side if it reaches one side
     this.loc.x = -30;
   } else if(this.loc.x < -30){
     this.loc.x = canvas.width+30;
+  }
+}
+Ball.prototype.collision = function () {
+  //experimental - enables the balls to bounce
+  for(let i = 0; i<balls.length-1;i++){
+    for(let j = i+1; j<balls.length;j++){
+      if(balls[i].loc.distance(balls[j])<=30){//dont do .loc cause code already referenecs that
+        // if((balls[i].vel.x+balls[i].vel.y)<(balls[i].vel.x+balls[j].vel.y)){//slower ball will be rocketed forward by faster ball
+        //   balls[j].vel.add(balls[i].vel);
+        // } else{
+        balls[i].vel.add(balls[j].vel);
+        // } 
+      }
+    }
   }
 }

@@ -16,7 +16,7 @@ function loadBalls(n){
     for(let i = 0; i < n; i++){
         //  fill an array with n balls
         let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
+        let y = Math.random() * (canvas.height-15);
         balls.push(new Ball(x,y, 30));
     }
 }
