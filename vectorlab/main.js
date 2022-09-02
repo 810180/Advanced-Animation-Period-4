@@ -8,7 +8,7 @@ let balls = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadBalls(5);
+    loadBalls(500);
     animate();      // kick off the animation
 }
 
@@ -23,8 +23,7 @@ function loadBalls(n){
 
 function animate() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    //  run all the balls from here
-    for(let i = 0; i<balls.length;i++){//balls has a defined length here
+    for(let i = 0; i<balls.length;i++){
         balls[i].run();
     }
     requestAnimationFrame(animate); // next cycle

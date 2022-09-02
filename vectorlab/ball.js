@@ -6,7 +6,8 @@ function Ball(x, y, d) {
   this.acc = new JSVector(0,0.05);//  add an acceleration vector
   this.diam = d;
 //  choose a random color from this array
-  this.clrArray = ["#2255AA", "FF0022", "Chocolate", "FireBrick", "GreenYellow", "LightSeaGreen", "Teal"];
+  //this.clrArray = ["#2255AA", "FF0022", "Chocolate", "FireBrick", "GreenYellow", "LightSeaGreen", "Teal"];
+  this.clrArray = ["FireBrick", "FireBrick"];
   this.clrIndex = Math.floor(Math.random() * this.clrArray.length);
   this.clr = this.clrArray[this.clrIndex];
 }
@@ -30,28 +31,16 @@ Ball.prototype.render = function () {
 
 Ball.prototype.update = function () {
   this.vel.add(this.acc);
-  // if(this.vel.x>6){//not necissary, happens if the balls bounce horizontally too fast
-  //   this.vel.x -=1;
-  // }
-  // if(this.vel.x>=20){
-  //   this.vel.x = 20;
-  // }
   this.loc.add(this.vel);
 }
 
 Ball.prototype.bounce = function () {
-  if(this.loc.y > canvas.height-(this.diam/2)){//"bounces" ball
-    this.vel.y *= (-1);
+  if(this.loc.y > canvas.height){//"bounces" ball against wall
+    this.vel.y = Math.abs(this.vel.y)*-1
     this.y = canvas.height - 1;
   }
-  if(this.loc.y > canvas.height+10){
-    this.vel.y = -10;
-    this.loc.y = canvas.height-20;
-  }
-  if((this.loc.x) > canvas.width+(this.diam/2)){//moves ball to the other side if it reaches one side
-    this.loc.x = -30;
-  } else if(this.loc.x < -30){
-    this.loc.x = canvas.width+30;
+  if(this.loc.x > canvas.width|| this.loc.x < 0){//bounces ball on both sides
+    this.vel.x = -this.vel.x;
   }
 }
 Ball.prototype.collision = function () {
