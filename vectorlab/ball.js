@@ -6,8 +6,8 @@ function Ball(x, y, d) {
   this.acc = new JSVector(0,0.05);//  add an acceleration vector
   this.diam = d;
 //  choose a random color from this array
-  //this.clrArray = ["#2255AA", "FF0022", "Chocolate", "FireBrick", "GreenYellow", "LightSeaGreen", "Teal"];
-  this.clrArray = ["FireBrick", "FireBrick"];
+  this.clrArray = ["#2255AA", "FF0022", "Chocolate", "FireBrick", "GreenYellow", "LightSeaGreen", "Teal"];
+  //this.clrArray = ["FireBrick", "FireBrick"];
   this.clrIndex = Math.floor(Math.random() * this.clrArray.length);
   this.clr = this.clrArray[this.clrIndex];
 }
@@ -48,11 +48,7 @@ Ball.prototype.collision = function () {
   for(let i = 0; i<balls.length-1;i++){
     for(let j = i+1; j<balls.length;j++){
       if(balls[i].loc.distance(balls[j])<=this.diam){//dont do .loc cause code already referenecs that
-        // if((balls[i].vel.x+balls[i].vel.y)<(balls[i].vel.x+balls[j].vel.y)){//slower ball will be rocketed forward by faster ball
-        //   balls[j].vel.add(balls[i].vel);
-        // } else{
         balls[i].vel.add(balls[j].vel);
-        // } 
       }
     }
   }
