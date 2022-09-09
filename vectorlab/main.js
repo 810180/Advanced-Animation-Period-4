@@ -8,7 +8,7 @@ let balls = [];
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadBalls(500);
+    loadBalls(50);
     animate();      // kick off the animation
 }
 
@@ -16,7 +16,7 @@ function loadBalls(n){
     for(let i = 0; i < n; i++){
         //  fill an array with n balls
         let x = Math.random() * canvas.width;
-        let y = Math.random() * (canvas.height-15);
+        let y = Math.random() * (canvas.height-40);
         balls.push(new Ball(x,y, 7));
     }
 }
