@@ -14,9 +14,10 @@ function Mover(x, y, d) {
 
 Mover.prototype.run = function () {
   this.render();
+  this.attract();
+  //this.repel();
   this.update();
   this.bounce();
-  this.attract();
 }
 
 Mover.prototype.render = function () {
@@ -32,6 +33,8 @@ Mover.prototype.render = function () {
 Mover.prototype.update = function () {
   this.vel.add(this.acc);
   this.loc.add(this.vel);
+  //set accel to 0 and change accel to be the attraction?
+  this.acc.multiply(0);
 }
 
 Mover.prototype.bounce = function () {
@@ -45,14 +48,28 @@ Mover.prototype.bounce = function () {
 
 Mover.prototype.attract = function () {
   for(let i = 0; i<movers.length; i++){
-    let blah;
-    blah = attractor.loc.distance(movers[i].loc);
-    if(blah<50){
+    if(attractor.loc.distance(movers[i].loc)<50){
       let newVec;
-      newVec = 
-      blah.normalize();
-      balh *= 0.05;
-      this.add(blah)
+      newVec = JSVector.addGetNew(movers[i].loc, attractor.loc);
+      //need to normalize then add to movers, drifts right?
+      newVec.normalize();
+      newVec.setMagnitude(newVec.getMagnitude());//it always gets pulled to the right
+      movers[i].acc.setMagnitude(newVec.getMagnitude());
+      movers[i].acc.setDirection(newVec.getDirection());
+    }
+  }
+}
+
+Mover.prototype.repel = function () {
+  for(let i = 0; i<movers.length; i++){
+    if(repeller.loc.distance(movers[i].loc)<50){
+      let newVec;
+      newVec = JSVector.subGetNew(movers[i].loc, attractor.loc);
+      //need to normalize then add to this
+      newVec.normalize();
+      newVec.setMagnitude(newVec.getMagnitude()*0.05);
+      movers[i].acc.setMagnitude(newVec.getMagnitude());
+      movers[i].acc.setDirection(newVec.getDirection());
     }
   }
 }

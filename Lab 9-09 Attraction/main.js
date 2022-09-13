@@ -5,12 +5,14 @@ window.addEventListener("load", init);
 let canvas, context;
 var movers = [];
 let attractor;
+let repeller
 
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
     loadMover(50);
     attractor = new Mover((Math.random()*canvas.width), (Math.random()*canvas.height), 15); 
+    //repeller = new Mover((Math.random()*canvas.width), (Math.random()*canvas.height), 20); 
     animate();      // kick off the animation
 }
 
@@ -29,6 +31,7 @@ function animate() {
         movers[i].run();
     }
     attractor.run();
+    //repeller.run();
     requestAnimationFrame(animate); // next cycle
 }
 
