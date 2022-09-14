@@ -53,9 +53,10 @@ Mover.prototype.attract = function () {
       newVec = JSVector.addGetNew(movers[i].loc, attractor.loc);
       //need to normalize then add to movers, drifts right?
       newVec.normalize();
-      newVec.setMagnitude(newVec.getMagnitude());//it always gets pulled to the right
-      movers[i].acc.setMagnitude(newVec.getMagnitude());
-      movers[i].acc.setDirection(newVec.getDirection());
+      newVec.setMagnitude(newVec.getMagnitude()*0.05);//it always gets pulled to the right
+      movers[i].loc.add(newVec);
+      //movers[i].acc.setMagnitude(newVec.getMagnitude());
+      //movers[i].acc.setDirection(newVec.getDirection());
     }
   }
 }
