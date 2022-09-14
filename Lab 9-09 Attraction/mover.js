@@ -38,7 +38,7 @@ Mover.prototype.update = function () {
       this.acc.normalize();
       this.acc.multiply(0.05);
     }
-    if(d<50){
+    if(d<100){
       this.acc = JSVector.subGetNew(this.loc, attractor.loc);
       this.acc.normalize();
       this.acc.multiply(0.05);

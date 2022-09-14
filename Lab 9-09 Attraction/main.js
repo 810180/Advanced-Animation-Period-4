@@ -26,7 +26,7 @@ function loadMover(n){//
 }
 
 function animate() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    //context.clearRect(0, 0, canvas.width, canvas.height);
     for(let i = 0; i<movers.length;i++){
         movers[i].run();
     }
