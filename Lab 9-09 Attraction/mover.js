@@ -14,7 +14,7 @@ function Mover(x, y, d) {
 
 Mover.prototype.run = function () {
   this.render();
-  this.attract();
+  //this.attract();
   //this.repel();
   this.update();
   this.bounce();
@@ -31,10 +31,23 @@ Mover.prototype.render = function () {
 }
 
 Mover.prototype.update = function () {
-  this.vel.add(this.acc);
+  if(this !== attractor){
+    let d = this.loc.distance(attractor.loc);
+    if(d<300){
+      this.acc = JSVector.subGetNew(attractor.loc, this.loc);
+      this.acc.normalize();
+      this.acc.multiply(0.05);
+    }
+    if(d<50){
+      this.acc = JSVector.subGetNew(this.loc, attractor.loc);
+      this.acc.normalize();
+      this.acc.multiply(0.05);
+    }
+    
+    this.vel.add(this.acc);
+    this.vel.limit(3);
+  }
   this.loc.add(this.vel);
-  //set accel to 0 and change accel to be the attraction?
-  this.acc.multiply(0);
 }
 
 Mover.prototype.bounce = function () {
@@ -48,29 +61,11 @@ Mover.prototype.bounce = function () {
 
 Mover.prototype.attract = function () {
   for(let i = 0; i<movers.length; i++){
-    if(attractor.loc.distance(movers[i].loc)<50){
-      let newVec;
-      newVec = JSVector.addGetNew(movers[i].loc, attractor.loc);
-      //need to normalize then add to movers, drifts right?
-      newVec.normalize();
-      newVec.setMagnitude(newVec.getMagnitude()*0.05);//it always gets pulled to the right
-      movers[i].loc.add(newVec);
-      //movers[i].acc.setMagnitude(newVec.getMagnitude());
-      //movers[i].acc.setDirection(newVec.getDirection());
-    }
-  }
-}
-
-Mover.prototype.repel = function () {
-  for(let i = 0; i<movers.length; i++){
-    if(repeller.loc.distance(movers[i].loc)<50){
-      let newVec;
-      newVec = JSVector.subGetNew(movers[i].loc, attractor.loc);
-      //need to normalize then add to this
-      newVec.normalize();
-      newVec.setMagnitude(newVec.getMagnitude()*0.05);
-      movers[i].acc.setMagnitude(newVec.getMagnitude());
-      movers[i].acc.setDirection(newVec.getDirection());
+    if(attractor.loc.distance(movers[i].loc)<50){ 
+      newVec2 = JSVector.subGetNew(attractor.loc, movers[i].loc);
+      newVec2.normalize();
+      newVec2.setMagnitude(newVec2.getMagnitude()*0.05);//it always gets pulled to the right
+      movers[i].loc.add(newVec2);
     }
   }
 }

@@ -4,13 +4,13 @@ window.addEventListener("load", init);
 // global variables
 let canvas, context;
 var movers = [];
-let attractor;
+var attractor;
 let repeller
 
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
-    loadMover(50);
+    loadMover(300);
     attractor = new Mover((Math.random()*canvas.width), (Math.random()*canvas.height), 15); 
     //repeller = new Mover((Math.random()*canvas.width), (Math.random()*canvas.height), 20); 
     animate();      // kick off the animation
