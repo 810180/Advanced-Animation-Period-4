@@ -14,8 +14,6 @@ function Mover(x, y, d) {
 
 Mover.prototype.run = function () {
   this.render();
-  //this.attract();
-  //this.repel();
   this.update();
   this.bounce();
 }
@@ -31,7 +29,7 @@ Mover.prototype.render = function () {
 }
 
 Mover.prototype.update = function () {
-  if(this !== attractor){
+  if(this !== attractor){//attraction
     let d = this.loc.distance(attractor.loc);
     if(d<300){
       this.acc = JSVector.subGetNew(attractor.loc, this.loc);
@@ -56,16 +54,5 @@ Mover.prototype.bounce = function () {
   }
   if(this.loc.x > canvas.width|| this.loc.x < 0){//bounces ball on both sides
     this.vel.x = -this.vel.x;
-  }
-}
-
-Mover.prototype.attract = function () {
-  for(let i = 0; i<movers.length; i++){
-    if(attractor.loc.distance(movers[i].loc)<50){ 
-      newVec2 = JSVector.subGetNew(attractor.loc, movers[i].loc);
-      newVec2.normalize();
-      newVec2.setMagnitude(newVec2.getMagnitude()*0.05);//it always gets pulled to the right
-      movers[i].loc.add(newVec2);
-    }
   }
 }
