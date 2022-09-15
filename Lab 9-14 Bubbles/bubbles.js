@@ -6,14 +6,14 @@ function Bubble(x, y, d) {
   this.acc = new JSVector(0, 0);//  add an acceleration vector
   this.diam = d;
   //  choose a random color from this array
-  this.clrArray = ["#2255AA", "FF0022", "Chocolate", "FireBrick", "GreenYellow", "LightSeaGreen", "Teal"];
-  //this.clrArray = ["FireBrick", "FireBrick"];
+  this.clrArray = ["#FFA500"];
   this.clrIndex = Math.floor(Math.random() * this.clrArray.length);
   this.clr = this.clrArray[this.clrIndex];
 }
 
 Bubble.prototype.run = function () {
   this.render();
+  this.clr = "#FFA500"//sets color to orange at the beginning of the frame, so that it may be changed later
   this.overlap();
   this.update();
   this.bounce();
@@ -43,12 +43,13 @@ Bubble.prototype.overlap = function () {
       this.acc = JSVector.subGetNew(this.loc, bubbles[i].loc);
       this.acc.normalize();
       this.acc.multiply(0.05);
+      this.clr = "#FF0000"//only works if the one above is overlaping
       }
       if(this.loc.distance(bubbles[i].loc)<50 && !this.loc.distance(bubbles[i].loc)==0){
       context.beginPath();
       context.moveTo(this.loc.x, this.loc.y);
       context.lineTo(bubbles[i].loc.x, bubbles[i].loc.y);
-      context.strokeStyle = 'black';
+      context.strokeStyle = 'white';
       context.lineWidth = 1;
       context.stroke();
     }

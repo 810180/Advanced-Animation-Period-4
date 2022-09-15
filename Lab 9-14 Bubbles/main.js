@@ -4,11 +4,12 @@ window.addEventListener("load", init);
 // global variables
 let canvas, context;
 var bubbles = [];
-let repeller
 
 function init() {
     canvas = document.getElementById("cnv");
     context = canvas.getContext("2d");
+    context.canvas.width = window.innerWidth;
+    context.canvas.height = window.innerHeight;
     loadMover(300);
     animate();      // kick off the animation
 }
@@ -27,7 +28,6 @@ function animate() {
     for(let i = 0; i<bubbles.length;i++){
         bubbles[i].run();
     }
-    //repeller.run();
     requestAnimationFrame(animate); // next cycle
 }
 
