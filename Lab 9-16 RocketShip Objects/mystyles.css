@@ -1,0 +1,7 @@
+canvas {
+    border: solid black 2px;
+    background-color: black;
+    width: 100%;/*width and height are set to 100% so they reach the bounds of the window*/
+    height: 100%;
+    margin: 0;
+}

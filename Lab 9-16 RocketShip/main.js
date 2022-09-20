@@ -29,7 +29,7 @@ function init() {
 function loadAsteroid(n) {
     //load asteroid is its own function so it can scale
     for (let i = 0; i < n; i++) {
-        asteroid.push(new Rocket(Math.random() * canvas.width, Math.random() * canvas.height, 10));
+        asteroid.push(new Rocket(Math.random() * canvas.width, Math.random() * canvas.height, Math.random()*10+5));
     }
 }
 
