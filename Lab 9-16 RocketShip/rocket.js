@@ -42,7 +42,7 @@ Rocket.prototype.render = function () {
     context.strokeStyle = this.clr;
     context.moveTo(this.diam, 0);
     context.lineTo(0, this.diam / 4);
-    context.lineTo(-this.diam / 8, 0);
+    context.lineTo(this.diam / 8, 0);//divot of the rocket
     context.lineTo(0, -this.diam / 4);
     context.closePath();
     context.fillStyle = this.clr;
@@ -57,7 +57,7 @@ Rocket.prototype.render = function () {
     context.rotate(this.vel.getDirection());
     context.strokeStyle = this.clr;
     //flame drawing here
-    context.moveTo(-this.diam / 8, 0);
+    context.moveTo(0, 0);//starts in the divot
     context.lineTo(-this.diam / 8, this.diam / 8);
     context.lineTo(-this.diam / 4 * Math.abs(rocket.vel.getMagnitude()), 0);
     context.lineTo(-this.diam / 8, -this.diam / 8);
@@ -86,9 +86,9 @@ Rocket.prototype.update = function () {
     this.acc.normalize();
     this.acc.multiply(0.05);
     this.vel.add(this.acc);
-    this.vel.limit(3.05);//rocket must be slighly faster in order to catch up to planet
+    this.vel.limit(4.05);//rocket must be slighly faster in order to catch up to planet
 
-  } else if (this === planet && this.loc.distance(rocket.loc) < 150) {
+  } else if (this === planet && this.loc.distance(rocket.loc) < 150) {//mmoves the plant when the rocket gets close
     let d = this.loc.distance(rocket.loc);
     this.acc = JSVector.subGetNew(this.loc, rocket.loc);
     //acceleration is calculated and limited here
