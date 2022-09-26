@@ -16,7 +16,7 @@ function init() {
 
 function loadPlanets(n) {
     for (let i = 0; i < n; i++) {
-        planets[i] = new Planet(Math.random() * canvas.width, Math.random() * canvas.height, 20, Math.floor(Math.random() * 10));
+        planets[i] = new Planet(Math.random() * canvas.width, Math.random() * canvas.height, 15, Math.floor(Math.random()*10),"#AA5585");
     }
 }
 
