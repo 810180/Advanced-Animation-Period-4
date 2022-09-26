@@ -5,7 +5,6 @@ function Orbiter(x, y, r, or, s, num) {
     this.orbRad = or;
     this.angVel = s;
     this.ang = num;//maybe 2pi/number of orbiters * index of orbiter- bruh why it no work
-    //this.ang = 0.05;
 }
 
 Orbiter.prototype.run = function (x, y) {
@@ -15,23 +14,29 @@ Orbiter.prototype.run = function (x, y) {
 
 Orbiter.prototype.render = function () {
     context.save();
-    //unsaved portion
+    //unsaved portion begining
     context.translate(this.loc.x, this.loc.y);
-    context.rotate(this.ang);
-    //rely on the angle changing to move the ball
+    context.rotate(this.ang);//the angle is gonna be very high lmao
     context.beginPath();
-    context.arc(this.orbRad, 0, this.rad, 0, 2 * Math.PI);//I spent over an hour trying to debut and Math.PI wasn't captitalized 
+    //line is drawn here
+    context.moveTo(this.orbRad,0);
+    context.lineTo(0, 0);
+    context.closePath();
+    context.strokeStyle = "white";;
+    context.stroke();
+    //orbiter drawn here
+    context.beginPath();
+    context.arc(this.orbRad+this.rad, 0, this.rad, 0, 2 * Math.PI);//I spent over an hour trying to debut and Math.PI wasn't captitalized 
     context.fillStyle = "red";
-    context.strokeStyle = "red";
+    context.strokeStyle = "white";
     context.fill();
     context.stroke();
-    //end of unsaveed portion
+    //end of unsaved portion
     context.restore();
 }
 
 Orbiter.prototype.update = function (x, y) {
     this.loc.x = x;
     this.loc.y = y;
-    //need to be able to change location
-    this.ang += this.angVel;//adds the current angle to this
+    this.ang += this.angVel;//adds the angular velocity to current angle
 }
