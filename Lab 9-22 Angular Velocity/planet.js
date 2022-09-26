@@ -4,17 +4,18 @@ function Planet(x, y, d, o) {
     this.rad = d;
     this.orbs = [];
     for (let i = 0; i < o; i++) {
-        this.orbs[i] = new Orbiter(this.loc.x, this.loc.y, 5, 15, 1);
+        this.orbs[i] = new Orbiter(this.loc.x, this.loc.y, 5, 30, 0.05, (i) * (Math.PI * 2 / o));//o cannot be 0 bc x/0 is dne
     }
 }
 
 Planet.prototype.run = function () {
+    //orbs no worky
+    for (let i = 0; i < this.orbs.length; i++) {
+        this.orbs[i].run(this.loc.x, this.loc.y);
+    }
     this.render();
     this.update();
     this.translate();
-    for (let i = 0; i < this.orbs.length; i++) {
-        this.orbs[i].run();
-    }
 }
 
 Planet.prototype.render = function () {
