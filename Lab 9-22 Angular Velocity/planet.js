@@ -42,16 +42,16 @@ Planet.prototype.update = function () {
 
 Planet.prototype.translate = function () {
     //translates planet to other side
-    if (this.loc.y > canvas.height) {
+    if (this.loc.y > canvas.height+this.rad) {
         this.loc.y = 0;
     }
-    if (this.loc.y < 0) {
+    if (this.loc.y < -this.rad) {
         this.loc.y = canvas.height;
     }
-    if (this.loc.x > canvas.width) {
+    if (this.loc.x > canvas.width+this.rad) {
         this.loc.x = 0;
     }
-    if (this.loc.x < 0) {
+    if (this.loc.x < -this.rad) {
         this.loc.x = canvas.width;
     }
 }
