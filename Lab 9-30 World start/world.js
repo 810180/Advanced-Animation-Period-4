@@ -5,8 +5,6 @@ function World() {
   this.cnvMini = document.getElementById('cnv2');
   this.ctxMini = this.cnvMini.getContext('2d');
   //  vector to locate canvas in the world
-
-
   this.dims = {
     top: -1500,
     left: -2000,
@@ -17,37 +15,37 @@ function World() {
   }
 
   this.movers = [];
-  this.loadMovers();
+  this.loadMovers(21);
 
   //Step 1::reduce world to fit inside of mini Canvas
-    //this.scaleX = ??
-    //this.scaleY = ??
-    this.cnvMainLoc = new JSVector(0, 0);
+  this.scaleX = this.cnvMini.width / this.cnvMain.width;
+  this.scaleY = this.cnvMini.height / this.cnvMain.height;
+  this.cnvMainLoc = new JSVector(0, 0);
 
-      // add an event handler such that the a, s, w, d keys
-      // will reposition the canvas within the world.
-      window.addEventListener("keypress", function (event) {
-        switch (event.code) {
-          //  What is "this" inside of the listener????????????????????
-          case "KeyW":
-            if (world.cnvMainLoc.y + 100 > world.dims.top)
-              world.cnvMainLoc.y -= 20;
-            break;
-          case "KeyS":
-            if (world.cnvMainLoc.y + world.cnvMain.height - 100 < world.dims.bottom)
-              world.cnvMainLoc.y += 20;
-            break;
-          case "KeyA":
-            if (world.cnvMainLoc.x + 100 > world.dims.left)
-              world.cnvMainLoc.x -= 20;
-            break;
-          case "KeyD":
-            if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
-              world.cnvMainLoc.x += 20;
-            break;
-            break;
-        }
-      }, false);
+  // add an event handler such that the a, s, w, d keys
+  // will reposition the canvas within the world.
+  window.addEventListener("keypress", function (event) {
+    switch (event.code) {
+      //  What is "this" inside of the listener????????????????????
+      case "KeyW":
+        if (world.cnvMainLoc.y + 100 > world.dims.top)
+          world.cnvMainLoc.y -= 20;
+        break;
+      case "KeyS":
+        if (world.cnvMainLoc.y + world.cnvMain.height - 100 < world.dims.bottom)
+          world.cnvMainLoc.y += 20;
+        break;
+      case "KeyA":
+        if (world.cnvMainLoc.x + 100 > world.dims.left)
+          world.cnvMainLoc.x -= 20;
+        break;
+      case "KeyD":
+        if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
+          world.cnvMainLoc.x += 20;
+        break;
+        break;
+    }
+  }, false);
 }//++++++++++++++++++++++++++++++  end world constructor
 
 
@@ -55,7 +53,7 @@ function World() {
 World.prototype.run = function () {
   // Step Two:  Move cnvMain in the world and run movers  ########################################################
   //  Clear the rectangle in the main Canvas
-
+  ctxMain.clearRect(cnvMain.top, cnvMain.left, cnvMain.bottom, cnvMain.right);//clears from the top left down to the bottom right
   //  move the main canvas inside of the world
 
   //  scale the world to fit into the miniCanvas
@@ -84,25 +82,26 @@ World.prototype.run = function () {
 }
 
 //Load mover array
-World.prototype.loadMovers = function () {
+World.prototype.loadMovers = function (n) {
+  for (let i = 0; i < n; i++) {
+    this.movers[i].add(new Mover(Math.random() * this.cnvMain.width, Math.random() * this.cnvMain.height, 21, "red"));
+  }
 
-}
-
-World.prototype.getRandomColor = function () {
-  //  List of hex color values for movers
-  let colors = [
-    "#7102AB",
-    "#ab0256",
-    "#0285ab",
-    "#02ab1a",
-    "#ab5302",
-    "#773e26",
-    "#ab0256",
-    "#257874",
-    "#78254e",
-    "#787725"
-  ];
-  let index = Math.floor(Math.random() * colors.length);
-  return colors[index];
-}
+  World.prototype.getRandomColor = function () {
+    //  List of hex color values for movers
+    let colors = [
+      "#7102AB",
+      "#ab0256",
+      "#0285ab",
+      "#02ab1a",
+      "#ab5302",
+      "#773e26",
+      "#ab0256",
+      "#257874",
+      "#78254e",
+      "#787725"
+    ];
+    let index = Math.floor(Math.random() * colors.length);
+    return colors[index];
+  }
 
