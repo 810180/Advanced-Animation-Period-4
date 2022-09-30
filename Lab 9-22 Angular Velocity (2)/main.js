@@ -14,9 +14,8 @@ function init() {
 }
 
 function loadPlanets(n) {
-
     for (let i = 0; i < n; i++) {
-        planets[i] = new Planet(Math.random() * canvas.width, Math.random() * canvas.height, 15, Math.floor(Math.random() * 10), clrList[Math.floor(Math.random() * clrList.length)]);
+        planets[i] = new Planet(Math.random() * canvas.width, Math.random() * canvas.height, 15, Math.floor(Math.random()*9 +1), clrList[Math.floor(Math.random() * clrList.length)]);
     }
 }
 
