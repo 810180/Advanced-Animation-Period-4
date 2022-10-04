@@ -1,33 +1,27 @@
-function Orbiter(parentLoc, rad, orbRad, angVel, startAng, clr, oR) {
-    this.orbiterRadius = rad;
-    this.orbDist = new JSVector(10, 10);
-    this.startAng = startAng;
-    this.orbDist.setDirection(startAng);
-    this.orbRad = orbRad;
-    this.orbDist.setMagnitude(orbRad);
-    this.orbiterLocation = JSVector.addGetNew(parentLoc, this.orbDist);
-    this.pLoc = parentLoc;
-    this.clr = clr;
-    this.angularVelocity = angVel;
-    this.orbiterRadius = oR;//size of the orbiter
+function Orbiter(parent, rad, orbRad, angVel, startAng, clr, oR) {
+    this.orbiterRadius = rad;//size of the oribter
+    this.rotator = new JSVector(10, 10);//rotator vector
+    this.rotator.setDirection(startAng);
+    this.rotator.setMagnitude(orbRad);
+    this.clr = clr;//color of the orbiter, equal to the plante
+    this.planet = parent;//inherits all properties of the planet
+    this.angularVelocity = angVel;//spped of rotation
 }
-Orbiter.prototype.run = function (planetLoc) {
+Orbiter.prototype.run = function () {
     this.render();
-    this.update(planetLoc);
+    this.update();
 }
 Orbiter.prototype.render = function () {
+    let loc = JSVector.addGetNew(this.planet.loc, this.rotator);
     context.beginPath();
-    context.arc(this.orbiterLocation.x, this.orbiterLocation.y, this.orbiterRadius, 0, Math.PI * 2);
+    context.arc(loc.x, loc.y, this.orbiterRadius, 0, Math.PI * 2);
     context.closePath();
     context.strokeStyle = this.clr;
     context.fillStyle = this.clr;
     context.fill();
     context.stroke();
 }
-Orbiter.prototype.update = function (planetLoc) {
-    this.pLoc.x = planetLoc.x;//updates the planets location for the orbiter    
-    this.pLoc.y = planetLoc.y;
-    this.orbDist.setDirection(this.orbDist.getDirection()+this.angularVelocity);
-    this.orbiterLocation.x = this.pLoc.x + this.orbRad * Math.cos(this.orbDist.getDirection());
-    this.orbiterLocation.y = this.pLoc.y + this.orbRad * Math.sin(this.orbDist.getDirection());
+Orbiter.prototype.update = function () {
+    this.rotator.rotate(this.angularVelocity);
 }
+    

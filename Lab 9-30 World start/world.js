@@ -86,22 +86,22 @@ World.prototype.loadMovers = function (n) {
   for (let i = 0; i < n; i++) {
     this.movers[i].add(new Mover(Math.random() * this.cnvMain.width, Math.random() * this.cnvMain.height, 21, "red"));
   }
-
-  World.prototype.getRandomColor = function () {
-    //  List of hex color values for movers
-    let colors = [
-      "#7102AB",
-      "#ab0256",
-      "#0285ab",
-      "#02ab1a",
-      "#ab5302",
-      "#773e26",
-      "#ab0256",
-      "#257874",
-      "#78254e",
-      "#787725"
-    ];
-    let index = Math.floor(Math.random() * colors.length);
-    return colors[index];
-  }
+}
+World.prototype.getRandomColor = function () {
+  //  List of hex color values for movers
+  let colors = [
+    "#7102AB",
+    "#ab0256",
+    "#0285ab",
+    "#02ab1a",
+    "#ab5302",
+    "#773e26",
+    "#ab0256",
+    "#257874",
+    "#78254e",
+    "#787725"
+  ];
+  let index = Math.floor(Math.random() * colors.length);
+  return colors[index];
+}
 

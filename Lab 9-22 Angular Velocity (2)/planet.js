@@ -4,15 +4,11 @@ function Planet(x, y, d, o, color) {
     this.rad = d;
     this.orbs = [];
     this.clr = color
-    //let orbDist = Math.random() * 40 + 30;//distance the orbiter is from the hub/planet
-    //let orbRad = Math.random() * 15 + 10;//the size of the orbiter
-    //let angSpeed = Math.random() * 0.1 + 0.01;//the speed the orbiter rotates at
-    let orbDist = 60;
-    let orbRad = 10;
-    let angSpeed = 0.05;
-    let orbiterRadius = 10;
+    let orbDist = Math.random() * 40 + 30;//distance the orbiter is from the hub/planet
+    let orbRad = Math.random() * 15 + 10;//the size of the orbiter
+    let angSpeed = Math.random() * 0.1 + 0.01;//the speed the orbiter rotates at
     for (let i = 0; i < o; i++) {
-        this.orbs[i] = new Orbiter(this.loc, orbRad, orbDist, angSpeed, (Math.PI*2/o) * i, this.clr, orbiterRadius);//o cannot be 0 bc x/0 is dne
+        this.orbs[i] = new Orbiter(this, orbRad, orbDist, angSpeed, (Math.PI*2/o) * i, this.clr);//o cannot be 0 bc x/0 is dne
     }
 }
 
