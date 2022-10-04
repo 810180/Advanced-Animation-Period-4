@@ -43,7 +43,6 @@ function World() {
         if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
           world.cnvMainLoc.x += 20;
         break;
-        break;
     }
   }, false);
 }//++++++++++++++++++++++++++++++  end world constructor
@@ -51,10 +50,31 @@ function World() {
 
 // run the world in animation
 World.prototype.run = function () {
+  let ctx = this.ctxMain;
+  ctx.beginPath();//draws a red line from the very top to the bottom of the main canvas
+  ctx.moveTo(0, this.dims.top);
+  ctx.lineTo(0, this.dims.bottom);
+  ctx.closePath();
+  ctx.lineWidth = 11;
+  ctx.strokeStyle = "blue";
+  ctx.stroke();
+
+  ctx.beginPath();//draws a centered line from the far left to the far right, use as a basis for 
+  ctx.moveTo(this.dims.left,0);
+  ctx.lineTo(this.dims.right,0);
+  ctx.closePath();
+  ctx.lineWidth = 11;
+  ctx.strokeStyle = "white";
+  ctx.stroke();
+
+
+
+
   // Step Two:  Move cnvMain in the world and run movers  ########################################################
   //  Clear the rectangle in the main Canvas
-  ctxMain.clearRect(cnvMain.top, cnvMain.left, cnvMain.bottom, cnvMain.right);//clears from the top left down to the bottom right
+  ctx.clearRect(this.dims.top,this.dims.left,this.dims.bottom,this.dims.right);
   //  move the main canvas inside of the world
+  cnvMain.translate(this.cnvMainLoc.x,this.cnvMainLoc.y);
 
   //  scale the world to fit into the miniCanvas
 
@@ -84,7 +104,7 @@ World.prototype.run = function () {
 //Load mover array
 World.prototype.loadMovers = function (n) {
   for (let i = 0; i < n; i++) {
-    this.movers[i].add(new Mover(Math.random() * this.cnvMain.width, Math.random() * this.cnvMain.height, 21, "red"));
+    //this.movers[i].add(new Mover(Math.random() * this.cnvMain.width, Math.random() * this.cnvMain.height, 21, "red"));
   }
 }
 World.prototype.getRandomColor = function () {
