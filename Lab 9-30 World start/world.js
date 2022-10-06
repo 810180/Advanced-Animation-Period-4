@@ -62,7 +62,7 @@ World.prototype.run = function () {
   this.ctxMini.translate(this.cnvMini.width / 2, this.cnvMini.height / 2);
 
   let ctx = this.ctxMain;
-
+  //the two axes
   ctx.beginPath();//draws a red line from the very top to the bottom of the main canvas
   ctx.moveTo(0, this.dims.top);
   ctx.lineTo(0, this.dims.bottom);
@@ -77,6 +77,15 @@ World.prototype.run = function () {
   ctx.closePath();
   ctx.lineWidth = 5;
   ctx.strokeStyle = "white";
+  ctx.stroke();
+  //the outline
+  ctx.beginPath();
+  ctx.moveTo(this.dims.left, this.dims.top);
+  ctx.lineTo(this.dims.right, this.dims.top);
+  ctx.lineTo(this.dims.right, this.dims.bottom);
+  ctx.lineTo(this.dims.left, this.dims.bottom);
+  ctx.closePath();
+  ctx.strokeStyle = "green";
   ctx.stroke();
 
   //  scale the world to fit into the miniCanvas
@@ -105,7 +114,7 @@ World.prototype.run = function () {
   ctx2.lineWidth = 5;
   ctx2.strokeStyle = "white";
   ctx2.stroke();
-
+//:)
   ctx2.beginPath();//draws a centered line from the far left to the far right
   ctx2.moveTo(this.dims.left, 0);
   ctx2.lineTo(this.dims.right, 0);
@@ -114,7 +123,15 @@ World.prototype.run = function () {
   ctx2.strokeStyle = "blue";
   ctx2.stroke();
   //    outline box inside of cnvMini
-  
+  ctx2.beginPath();
+  ctx2.moveTo(this.cnvMainLoc.x, this.cnvMainLoc.y);
+  ctx2.lineTo(this.cnvMainLoc.x+this.cnvMain.width, this.cnvMainLoc.y);
+  ctx2.lineTo(this.cnvMainLoc.x+this.cnvMain.width, this.cnvMainLoc.y+this.cnvMain.height);
+  ctx2.lineTo(this.cnvMainLoc.x,this.cnvMainLoc.y+this.cnvMain.height)
+  ctx2.closePath();
+  ctx2.lineWidth = 5;
+  ctx2.strokeStyle = "pink";
+  ctx2.stroke();
 
 
   this.ctxMini.restore();

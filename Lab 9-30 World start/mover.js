@@ -22,16 +22,16 @@ Mover.prototype.update = function () {
 
 
 Mover.prototype.checkEdges = function () {
-  if(this.loc.x<world.dims.left){
+  if(this.loc.x<world.dims.left+this.rad){
     this.vel.x = -this.vel.x;
   }
-  if(this.loc.x>world.dims.right){
+  if(this.loc.x>world.dims.right-this.rad){
     this.vel.x = -this.vel.x;
   }
-  if(this.loc.y>world.dims.top){
+  if(this.loc.y>world.dims.top+this.rad){
     this.vel.y = -this.vel.y;
   }
-  if(this.loc.y<world.dims.bottom){
+  if(this.loc.y<world.dims.bottom-this.rad){
     this.vel.y = -this.vel.y;
   }
 }
