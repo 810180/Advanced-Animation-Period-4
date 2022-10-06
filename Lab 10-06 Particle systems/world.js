@@ -14,8 +14,7 @@ function World() {
     height: 3000
   }
 
-  this.movers = [];
-  this.loadMovers(210);
+  this.particlesS = new particleSystems(200, 200, this.ctxMain, this.ctxMini);
 
   //Step 1::reduce world to fit inside of mini Canvas
   this.scaleX = this.cnvMini.width / this.dims.width;
@@ -91,12 +90,7 @@ World.prototype.run = function () {
   //  scale the world to fit into the miniCanvas
   this.ctxMini.scale(this.scaleX, this.scaleY);
 
-  //  center the world inside of the miniCanvas
-
-  //  run the movers in both canvas
-  for (let i = 0; i < this.movers.length; i++) {
-    this.movers[i].run();
-  }
+  this.particlesS.run();
 
   //  restore the context
   this.ctxMain.restore();
@@ -114,7 +108,7 @@ World.prototype.run = function () {
   ctx2.lineWidth = 20;
   ctx2.strokeStyle = "red";
   ctx2.stroke();
-//:)
+  //:)
   ctx2.beginPath();//draws a centered line from the far left to the far right
   ctx2.moveTo(this.dims.left, 0);
   ctx2.lineTo(this.dims.right, 0);
@@ -125,9 +119,9 @@ World.prototype.run = function () {
   //    outline box inside of cnvMini
   ctx2.beginPath();
   ctx2.moveTo(this.cnvMainLoc.x, this.cnvMainLoc.y);
-  ctx2.lineTo(this.cnvMainLoc.x+this.cnvMain.width, this.cnvMainLoc.y);
-  ctx2.lineTo(this.cnvMainLoc.x+this.cnvMain.width, this.cnvMainLoc.y+this.cnvMain.height);
-  ctx2.lineTo(this.cnvMainLoc.x,this.cnvMainLoc.y+this.cnvMain.height)
+  ctx2.lineTo(this.cnvMainLoc.x + this.cnvMain.width, this.cnvMainLoc.y);
+  ctx2.lineTo(this.cnvMainLoc.x + this.cnvMain.width, this.cnvMainLoc.y + this.cnvMain.height);
+  ctx2.lineTo(this.cnvMainLoc.x, this.cnvMainLoc.y + this.cnvMain.height)
   ctx2.closePath();
   ctx2.lineWidth = 15;
   ctx2.strokeStyle = "black";
@@ -137,12 +131,6 @@ World.prototype.run = function () {
   this.ctxMini.restore();
 }
 
-//Load mover array
-World.prototype.loadMovers = function (n) {
-  for (let i = 0; i < n; i++) {
-    this.movers[i] = new Mover(Math.random() * this.dims.width - this.dims.width / 2, Math.random() * this.dims.height - this.dims.height / 2, 21, this.getRandomColor(), this.ctxMain, this.ctxMini);
-  }
-}
 World.prototype.getRandomColor = function () {
   //  List of hex color values for movers
   let colors = [
