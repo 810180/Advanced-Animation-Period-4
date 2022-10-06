@@ -15,11 +15,11 @@ function World() {
   }
 
   this.movers = [];
-  this.loadMovers(21);
+  this.loadMovers(210);
 
   //Step 1::reduce world to fit inside of mini Canvas
-  this.scaleX = this.cnvMini.width / this.cnvMain.width;
-  this.scaleY = this.cnvMini.height / this.cnvMain.height;
+  this.scaleX = this.cnvMini.width / this.dims.width;
+  this.scaleY = this.cnvMini.height / this.dims.height;
   this.cnvMainLoc = new JSVector(0, 0);
 
   // add an event handler such that the a, s, w, d keys
@@ -43,6 +43,7 @@ function World() {
         if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
           world.cnvMainLoc.x += 20;
         break;
+        break;
     }
   }, false);
 }//++++++++++++++++++++++++++++++  end world constructor
@@ -50,61 +51,79 @@ function World() {
 
 // run the world in animation
 World.prototype.run = function () {
+  // Step Two:  Move cnvMain in the world and run movers  ########################################################
+  //  Clear the rectangle in the main Canvas
+  this.ctxMain.clearRect(0, 0, this.cnvMain.width, this.cnvMain.height);
+  this.ctxMini.clearRect(0, 0, this.cnvMini.width, this.cnvMini.height);
+  this.ctxMain.save();
+  this.ctxMini.save();
+  //  move the main canvas inside of the world
+  this.ctxMain.translate(-this.cnvMainLoc.x, -this.cnvMainLoc.y);
+  this.ctxMini.translate(this.cnvMini.width / 2, this.cnvMini.height / 2);
+
   let ctx = this.ctxMain;
+
   ctx.beginPath();//draws a red line from the very top to the bottom of the main canvas
   ctx.moveTo(0, this.dims.top);
   ctx.lineTo(0, this.dims.bottom);
   ctx.closePath();
-  ctx.lineWidth = 11;
+  ctx.lineWidth = 5;
   ctx.strokeStyle = "blue";
   ctx.stroke();
 
-  ctx.beginPath();//draws a centered line from the far left to the far right, use as a basis for 
-  ctx.moveTo(this.dims.left,0);
-  ctx.lineTo(this.dims.right,0);
+  ctx.beginPath();//draws a centered line from the far left to the far right
+  ctx.moveTo(this.dims.left, 0);
+  ctx.lineTo(this.dims.right, 0);
   ctx.closePath();
-  ctx.lineWidth = 11;
+  ctx.lineWidth = 5;
   ctx.strokeStyle = "white";
   ctx.stroke();
 
-
-
-
-  // Step Two:  Move cnvMain in the world and run movers  ########################################################
-  //  Clear the rectangle in the main Canvas
-  ctx.clearRect(this.dims.top,this.dims.left,this.dims.bottom,this.dims.right);
-  //  move the main canvas inside of the world
-  cnvMain.translate(this.cnvMainLoc.x,this.cnvMainLoc.y);
-
   //  scale the world to fit into the miniCanvas
+  this.ctxMini.scale(this.scaleX, this.scaleY);
 
   //  center the world inside of the miniCanvas
 
   //  run the movers in both canvas
-
   for (let i = 0; i < this.movers.length; i++) {
     this.movers[i].run();
   }
 
   //  restore the context
-
+  this.ctxMain.restore();
+  let ctx2 = this.ctxMini;
   // Step Three:  Draw the mainCanv and axes in the miniCanv ########################################################
   //    scale cnvMini to contain the entire world
-
+  //done above
   //    center the world in miniCnv
-
+  //done above
   //    draw x and y axes on miniMap
+  ctx2.beginPath();
+  ctx2.moveTo(0, this.dims.top);
+  ctx2.lineTo(0, this.dims.bottom);
+  ctx2.closePath();
+  ctx2.lineWidth = 5;
+  ctx2.strokeStyle = "white";
+  ctx2.stroke();
 
+  ctx2.beginPath();//draws a centered line from the far left to the far right
+  ctx2.moveTo(this.dims.left, 0);
+  ctx2.lineTo(this.dims.right, 0);
+  ctx2.closePath();
+  ctx2.lineWidth = 5;
+  ctx2.strokeStyle = "blue";
+  ctx2.stroke();
   //    outline box inside of cnvMini
+  
 
-  //    this.ctxMain.restore();
-  //    this.ctxMini.restore();
+
+  this.ctxMini.restore();
 }
 
 //Load mover array
 World.prototype.loadMovers = function (n) {
   for (let i = 0; i < n; i++) {
-    //this.movers[i].add(new Mover(Math.random() * this.cnvMain.width, Math.random() * this.cnvMain.height, 21, "red"));
+    this.movers[i] = new Mover(Math.random() * this.dims.width - this.dims.width / 2, Math.random() * this.dims.height - this.dims.height / 2, 21, this.getRandomColor(), this.ctxMain, this.ctxMini);
   }
 }
 World.prototype.getRandomColor = function () {
