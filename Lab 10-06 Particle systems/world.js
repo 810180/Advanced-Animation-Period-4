@@ -14,36 +14,19 @@ function World() {
     height: 3000
   }
 
-  this.particlesS = new particleSystems(200, 200, this.ctxMain, this.ctxMini);
+  this.particlesS = [];
+  
 
   //Step 1::reduce world to fit inside of mini Canvas
   this.scaleX = this.cnvMini.width / this.dims.width;
   this.scaleY = this.cnvMini.height / this.dims.height;
   this.cnvMainLoc = new JSVector(0, 0);
-
-  // add an event handler such that the a, s, w, d keys
-  // will reposition the canvas within the world.
-  window.addEventListener("keypress", function (event) {
-    switch (event.code) {
-      //  What is "this" inside of the listener????????????????????
-      case "KeyW":
-        if (world.cnvMainLoc.y + 100 > world.dims.top)
-          world.cnvMainLoc.y -= 20;
-        break;
-      case "KeyS":
-        if (world.cnvMainLoc.y + world.cnvMain.height - 100 < world.dims.bottom)
-          world.cnvMainLoc.y += 20;
-        break;
-      case "KeyA":
-        if (world.cnvMainLoc.x + 100 > world.dims.left)
-          world.cnvMainLoc.x -= 20;
-        break;
-      case "KeyD":
-        if (world.cnvMainLoc.x + world.cnvMain.width - 100 < world.dims.right)
-          world.cnvMainLoc.x += 20;
-        break;
-        break;
-    }
+  //checks for mouse click to move starting location to mouse
+  this.cnvMain.addEventListener("click", function (event) {
+    //listens to canvas for click: then calls this function
+    let nPLoc = new JSVector(event.offsetX,event.offsetY);//creates JSVector at mouse location
+    nPLoc.add(world.cnvMainLoc);//need to add mous elocatin to canvas location to get actual location
+    world.particlesS.push( new particleSystems(nPLoc.x,nPLoc.y, world.ctxMain,world.ctxMini));
   }, false);
 }//++++++++++++++++++++++++++++++  end world constructor
 
@@ -90,7 +73,10 @@ World.prototype.run = function () {
   //  scale the world to fit into the miniCanvas
   this.ctxMini.scale(this.scaleX, this.scaleY);
 
-  this.particlesS.run();
+  
+  for(let i =0; i<this.particlesS.length;i++){
+    this.particlesS[i].run();
+  }
 
   //  restore the context
   this.ctxMain.restore();

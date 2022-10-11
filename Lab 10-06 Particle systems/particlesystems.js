@@ -7,7 +7,7 @@ function particleSystems(x,y,ctx1,ctx2){
     //random death day
 }
 particleSystems.prototype.newparticle = function () {
-    this.particles[this.particles.length] = (new Particle(this.sLoc.x,this.sLoc.y, Math.random()*100 + 100,this.ctx1,this.ctx2, 2));
+    this.particles[this.particles.length] = (new Particle(this.sLoc.x,this.sLoc.y, Math.random()*100 + 100,this.ctx1,this.ctx2, 20));
 }
 particleSystems.prototype.lmaoF = function () {
     for(let i = this.particles.length-1;i>=0;i--){
@@ -23,5 +23,3 @@ particleSystems.prototype.run = function () {
     }
     this.lmaoF();//checks to make sure the particle shouldnt die
 }
-
-//world.addEventListener("mousedown", )
