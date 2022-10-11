@@ -22,23 +22,6 @@ particleSystems.prototype.run = function () {
         this.particles[i].run();
     }
     this.lmaoF();//checks to make sure the particle shouldnt die
-    this.move();
-    this.checkEdges();
 }
-particleSystems.prototype.move = function () {
-    this.sLoc.add(this.sVel);
-}
-particleSystems.prototype.checkEdges = function () {
-    if(this.sLoc.x<world.dims.left){
-        this.sVel.x = -this.sVel.x;
-      }
-      if(this.sLoc.x>world.dims.right){
-        this.sVel.x = -this.sVel.x;
-      }
-      if(this.sLoc.y>world.dims.top){
-        this.sVel.y = -this.sVel.y;
-      }
-      if(this.sLoc.y<world.dims.bottom){
-        this.sVel.y = -this.sVel.y;
-      }
-}
+
+//world.addEventListener("mousedown", )
