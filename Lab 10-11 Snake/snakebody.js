@@ -28,17 +28,22 @@ sBody.prototype.render = function (upperLoc) {
     this.ctx1.lineTo(upperLoc.x,upperLoc.y);
     this.ctx1.closePath();
     this.ctx1.stroke();
+    this.ctx2.beginPath();
+    this.ctx2.moveTo(this.loc.x,this.loc.y);
+    this.ctx2.lineTo(upperLoc.x,upperLoc.y);
+    this.ctx2.closePath();
+    this.ctx2.stroke();
     
 }
 sBody.prototype.update = function (upperLoc,mag) {
     
     this.vel.add(JSVector.subGetNew(upperLoc,this.loc));
     this.vel.limit(mag);
-    if(this.loc.distance(upperLoc) < 50) {
-        this.vel.setMagnitude(this.vel.getMagnitude()-0.5)    
+    if(this.loc.distance(upperLoc) < 10) {//makes sure that the bodies are a sufficient distance fron the head/next link
+        this.vel.setMagnitude(this.vel.getMagnitude()-0.05)    
     }
-    if(this.loc.distance(upperLoc) > 150) {
-        this.vel.setMagnitude(this.vel.getMagnitude()+0.5)    
+    if(this.loc.distance(upperLoc) > 25) {
+        this.vel.setMagnitude(this.vel.getMagnitude()+0.1)    
     }
     this.loc.add(this.vel);
 }

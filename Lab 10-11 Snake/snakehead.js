@@ -7,7 +7,7 @@ function sHead(x,y,size,ctx1,ctx2,taleNo) {
     this.size = size;
     this.tails = [];
 for(let i = 0;i<taleNo;i++){
-        this.tails[i] = new sBody(this.loc.x,this.loc.y,5,this.ctx1,this.ctx2,);
+        this.tails[i] = new sBody(this.loc.x,this.loc.y,10,this.ctx1,this.ctx2,);
     }
 }
 sHead.prototype.run = function () {
@@ -49,10 +49,10 @@ sHead.prototype.checkEdges = function () {
       if(this.loc.x>world.dims.right-20){
         this.vel.x = this.vel.x - 0.05
       }
-      if(this.loc.y>world.dims.top-20){
+      if(this.loc.y>world.dims.top+20){
         this.vel.y = this.vel.y - 0.05
       }
-      if(this.loc.y<world.dims.bottom+20){
+      if(this.loc.y<world.dims.bottom-20){
         this.vel.y = this.vel.y + 0.05
       }
 }

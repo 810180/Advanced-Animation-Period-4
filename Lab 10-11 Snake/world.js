@@ -15,6 +15,8 @@ function World() {
   }
   this.snakes = [];
   this.loadSnakes(2);
+  this.movin;
+  this.cursor = new JSVector();
   //Step 1::reduce world to fit inside of mini Canvas
   this.scaleX = this.cnvMini.width / this.dims.width;
   this.scaleY = this.cnvMini.height / this.dims.height;
@@ -42,6 +44,18 @@ function World() {
           world.cnvMainLoc.x += 20;
         break;
         break;
+    }
+  }, false);
+  this.cnvMain.addEventListener("click", function (event) {
+    //listens to canvas for click: then calls this function
+    cursor = new JSVector(event.offsetX, event.offsetY);//creates JSVector at mouse location
+    for (let i = 0; i < world.snakes.length; i++) {
+      let cLoc = new JSVector(0,0);
+      cLoc.x = cursor.x + world.cnvMainLoc.x;
+      cLoc.y = cursor.y + world.cnvMainLoc.y;
+      if (world.snakes[i].loc.distance(cLoc) < 100) {//should move the canvas location to the snakes location 
+        world.movin = true;
+      }
     }
   }, false);
 }//++++++++++++++++++++++++++++++  end world constructor
@@ -95,6 +109,12 @@ World.prototype.run = function () {
   for (let i = 0; i < this.snakes.length; i++) {
     this.snakes[i].run();
   }
+  if(this.movin == true){
+    for(let i = 0; i < this.snakes.length; i++){
+      world.cnvMainLoc.x  = this.snakes[i].loc.x - world.cnvMain.width/2;
+      world.cnvMainLoc.y  = this.snakes[i].loc.y- world.cnvMain.height/2;
+    }
+  }
 
   //  restore the context
   this.ctxMain.restore();
@@ -138,7 +158,7 @@ World.prototype.run = function () {
 //Load mover array
 World.prototype.loadSnakes = function (n) {
   for (let i = 0; i < n; i++) {
-    this.snakes[i] = new sHead(200, 200, 20, this.ctxMain, this.ctxMini,4);
+    this.snakes[i] = new sHead(200, 200, 20, this.ctxMain, this.ctxMini, 4);
   }
 }
 World.prototype.getRandomColor = function () {
