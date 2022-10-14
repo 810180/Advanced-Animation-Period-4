@@ -7,7 +7,7 @@ function sHead(x,y,size,ctx1,ctx2,taleNo) {
     this.size = size;
     this.tails = [];
 for(let i = 0;i<taleNo;i++){
-        this.tails[i] = new sBody(this.loc.x,this.loc.y,5,this.ctx1,this.ctx2);
+        this.tails[i] = new sBody(this.loc.x,this.loc.y,5,this.ctx1,this.ctx2,);
     }
 }
 sHead.prototype.run = function () {
@@ -17,8 +17,12 @@ sHead.prototype.run = function () {
     this.snail();
 }
 sHead.prototype.snail = function () {
-    for(let i = 0; i<this.tails.length; i++){
-        this.tails[i].run();
+     for(let i = 0; i<this.tails.length; i++){
+         if(i == 0){
+            this.tails[0].run(this.loc,this.vel.getMagnitude());//makes sure the first tail segment follows the head and not the previous tail
+        } else {
+            this.tails[i].run(this.tails[i-1].loc,this.vel.getMagnitude());
+        }
     }
 }
 sHead.prototype.update = function () {
@@ -46,9 +50,9 @@ sHead.prototype.checkEdges = function () {
         this.vel.x = this.vel.x - 0.05
       }
       if(this.loc.y>world.dims.top-20){
-        this.vel.x = this.vel.x - 0.05
+        this.vel.y = this.vel.y - 0.05
       }
       if(this.loc.y<world.dims.bottom+20){
-        this.vel.x = this.vel.x + 0.05
+        this.vel.y = this.vel.y + 0.05
       }
 }
