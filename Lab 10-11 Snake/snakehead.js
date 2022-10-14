@@ -27,7 +27,7 @@ sHead.prototype.snail = function () {
 }
 sHead.prototype.update = function () {
     this.loc.add(this.vel);
-    this.vel.limit(3);
+    this.vel.limit(7);
 }
 sHead.prototype.render = function () {
     this.ctx1.beginPath();

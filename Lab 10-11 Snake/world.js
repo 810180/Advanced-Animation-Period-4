@@ -6,16 +6,17 @@ function World() {
   this.ctxMini = this.cnvMini.getContext('2d');
   //  vector to locate canvas in the world
   this.dims = {
-    top: -1500,
-    left: -2000,
-    bottom: 1500,
-    right: 2000,
-    width: 4000,
-    height: 3000
+    top: -750,
+    left: -1000,
+    bottom: 750,
+    right: 1000,
+    width: 2000,
+    height: 1500
   }
   this.snakes = [];
-  this.loadSnakes(2);
+  this.loadSnakes(21);
   this.movin;
+  this.mNum;
   this.cursor = new JSVector();
   //Step 1::reduce world to fit inside of mini Canvas
   this.scaleX = this.cnvMini.width / this.dims.width;
@@ -55,6 +56,7 @@ function World() {
       cLoc.y = cursor.y + world.cnvMainLoc.y;
       if (world.snakes[i].loc.distance(cLoc) < 100) {//should move the canvas location to the snakes location 
         world.movin = true;
+        world.mNum = i;
       }
     }
   }, false);
@@ -111,8 +113,8 @@ World.prototype.run = function () {
   }
   if(this.movin == true){
     for(let i = 0; i < this.snakes.length; i++){
-      world.cnvMainLoc.x  = this.snakes[i].loc.x - world.cnvMain.width/2;
-      world.cnvMainLoc.y  = this.snakes[i].loc.y- world.cnvMain.height/2;
+      world.cnvMainLoc.x  = this.snakes[world.mNum].loc.x - world.cnvMain.width/2;
+      world.cnvMainLoc.y  = this.snakes[world.mNum].loc.y- world.cnvMain.height/2;
     }
   }
 
@@ -158,7 +160,7 @@ World.prototype.run = function () {
 //Load mover array
 World.prototype.loadSnakes = function (n) {
   for (let i = 0; i < n; i++) {
-    this.snakes[i] = new sHead(200, 200, 20, this.ctxMain, this.ctxMini, 4);
+    this.snakes[i] = new sHead(Math.random()*this.cnvMain.width - this.cnvMain.width/2, Math.random()*this.cnvMain.height - this.cnvMain.height/2, 20, this.ctxMain, this.ctxMini, 4);
   }
 }
 World.prototype.getRandomColor = function () {

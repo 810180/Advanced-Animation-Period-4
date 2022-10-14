@@ -1,7 +1,6 @@
 function sBody(headX,headY,size,ctx1,ctx2) {
-    this.loc = new JSVector(20,20);
-    this.hLoc = new JSVector(headX,headY);//location of the head
-    this.vel = JSVector.subGetNew(this.hLoc,this.loc);//the snake body needs to have a velocity that is always being added to the head
+    this.loc = new JSVector(headX,headY);
+    this.vel = new JSVector(0,0)
     this.size = size;
     this.ctx1 = ctx1;
     this.ctx2 = ctx2;
@@ -11,6 +10,7 @@ sBody.prototype.run = function (upperLoc,mag) {
     this.update(upperLoc,mag);
 }
 sBody.prototype.render = function (upperLoc) {
+    //this.strokeWeight = 10;
     //Circle Rendering
     this.ctx1.beginPath();//draws body on the main cnavas
     this.ctx1.arc(this.loc.x,this.loc.y,this.size,0,Math.PI*2);
@@ -37,13 +37,14 @@ sBody.prototype.render = function (upperLoc) {
 }
 sBody.prototype.update = function (upperLoc,mag) {
     
-    this.vel.add(JSVector.subGetNew(upperLoc,this.loc));
-    this.vel.limit(mag);
+    this.vel.add(JSVector.subGetNew(upperLoc,this.loc));//adds the new direction tothe velocity vector
+    this.vel.limit(mag-0.5);
+    
     if(this.loc.distance(upperLoc) < 10) {//makes sure that the bodies are a sufficient distance fron the head/next link
-        this.vel.setMagnitude(this.vel.getMagnitude()-0.05)    
+        this.vel.setMagnitude(this.vel.getMagnitude()-0.5)    
     }
-    if(this.loc.distance(upperLoc) > 25) {
-        this.vel.setMagnitude(this.vel.getMagnitude()+0.1)    
+    if(this.loc.distance(upperLoc) > 50) {
+        this.vel.setMagnitude(this.vel.getMagnitude()+1)    
     }
     this.loc.add(this.vel);
 }
