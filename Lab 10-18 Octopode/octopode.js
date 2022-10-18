@@ -60,7 +60,7 @@ Octopode.prototype.detectFood = function () {
     for(let i = 0; i<world.mover.length;i++){
         let dist = this.loc.distance(world.mover[i].loc);
         if(dist<100){
-            this.runGrabbers(1);
+            this.runGrabbers(0,i);
             //how to run closest grabber not just the first one
             //get angle between this and the other, compare to angle of the arms -- angle between
             //one with the closest vector reaches forward
@@ -68,6 +68,6 @@ Octopode.prototype.detectFood = function () {
         }
     }
 }
-Octopode.prototype.runGrabbers = function (n) {
-    this.arms[0].run();
+Octopode.prototype.runGrabbers = function (armNumber,moverNumber) {
+    this.arms[0].run(armNumber,moverNumber);
 }
