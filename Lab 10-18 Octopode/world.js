@@ -14,8 +14,8 @@ function World() {
     height: 1500
   }
   //loads snakes
-  this.snakes = [];
-  this.loadSnakes(21);
+  // this.snakes = [];
+  // this.loadSnakes(21);
   this.mover = [];
   this.loadMovers(4);
   this.octopi = [];
@@ -114,9 +114,9 @@ World.prototype.run = function () {
   this.ctxMini.scale(this.scaleX, this.scaleY);
 
   //  run the movers in both canvas
-  for (let i = 0; i < this.snakes.length; i++) {
-    this.snakes[i].run();
-  }
+  // for (let i = 0; i < this.snakes.length; i++) {
+  //   this.snakes[i].run();
+  // }
   for (let i = 0; i < this.mover.length; i++) {
     this.mover[i].run();
   }
@@ -182,7 +182,7 @@ World.prototype.loadMovers = function (n) {
 }
 World.prototype.loadOctopi = function (n) {
   for(let i = 0; i < n; i ++){
-    this.octopi[i] = new Octopode(200,200,12,1)
+    this.octopi[i] = new Octopode(200,200,15,1)
   }
 }
 World.prototype.getRandomColor = function () {

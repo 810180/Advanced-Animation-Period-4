@@ -12,13 +12,14 @@ function Octopode(x,y,rad,numberOfArms,) {
 }
 Octopode.prototype.loadArms = function (n) {
     for(let i = 0; i<n;i++){
-        this.arms[i] = new oArms(this.loc.x,this.loc.y);
+        this.arms[i] = new oArms(this.loc.x,this.loc.y, 3, 12);
     }
 }
 Octopode.prototype.run = function () {
     this.checkEdges();
     this.update();
     this.render();
+    this.testRender();
     this.detectFood();
 }
 //rendering of the octopus
@@ -56,10 +57,24 @@ Octopode.prototype.render = function () {
     world.ctxMini.stroke();   // render the stroke
 }
 //rendering of the grabbers
+Octopode.prototype.testRender = function () {
+    for(let i = 0; i<world.mover.length;i++){
+        let disdance = this.loc.distance(world.mover[i].loc)
+        if(disdance < 100){
+            world.ctxMain.beginPath();
+            world.ctxMain.moveTo(this.loc.x,this.loc.y);
+            world.ctxMain.lineTo(world.mover[i].loc.x,world.mover[i].loc.y);
+            world.ctxMain.closePath();
+            world.ctxMain.fill();
+            world.ctxMain.stroke();
+        }
+    }
+}
 Octopode.prototype.detectFood = function () {
     for(let i = 0; i<world.mover.length;i++){
         let dist = this.loc.distance(world.mover[i].loc);
-        if(dist<100){
+        if(dist<100){//will only send out arm while thing is within range
+            //let angle = this.loc.getAngle(world.mover[i].loc);//the angle between these two 
             this.runGrabbers(0,i);
             //how to run closest grabber not just the first one
             //get angle between this and the other, compare to angle of the arms -- angle between
@@ -69,5 +84,5 @@ Octopode.prototype.detectFood = function () {
     }
 }
 Octopode.prototype.runGrabbers = function (armNumber,moverNumber) {
-    this.arms[0].run(armNumber,moverNumber);
+    this.arms[0].run(armNumber,moverNumber,this.loc);
 }
