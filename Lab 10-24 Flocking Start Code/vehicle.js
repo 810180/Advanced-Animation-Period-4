@@ -5,7 +5,7 @@ function Vehicle(loc) {
   let dy = Math.random() * 4 - 2;
   this.vel = new JSVector(dx, dy);
   this.acc = new JSVector(0, 0);
- 
+
   this.clr = "rgba(180,0,220,.8)";
   this.maxSpeed = document.getElementById("slider2").value;  // %%%%%%%%%%%%%%%%%
   this.maxForce = document.getElementById("slider1").value;  // %%%%%%%%%%%%%%%%%
@@ -22,17 +22,17 @@ Vehicle.prototype.run = function (vehicles) {
   this.render();
 }
 
-Vehicle.prototype.flock = function(vehicles) {
+Vehicle.prototype.flock = function (vehicles) {
   //  flock force is the accumulation of all forces
-  let flockForce = new JSVector(0,0);
+  let flockForce = new JSVector(0, 0);
   // set up force vectors to be added to acc
   let sep = this.separate(vehicles);
   let ali = this.align(vehicles);
   let coh = this.cohesion(vehicles);
   //  set multiples via sliders 
   let sepMult = document.getElementById("slider3").value; // %%%%%%%%%%%%%%%%%%
-  let aliMult = document.getElementById("slider4").value;;  // %%%%%%%%%%%%%%%%%%
-  let cohMult = document.getElementById("slider5").value;;    // %%%%%%%%%%%%%%%%%%
+  let aliMult = document.getElementById("slider4").value; // %%%%%%%%%%%%%%%%%%
+  let cohMult = document.getElementById("slider5").value; // %%%%%%%%%%%%%%%%%%
   //  calculate three forces
   sep.multiply(sepMult);
   ali.multiply(aliMult);
@@ -45,23 +45,60 @@ Vehicle.prototype.flock = function(vehicles) {
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
 Vehicle.prototype.separate = function (v) {
+  let sum = new JSVector(0, 0);
+  let inc;
+  for (let i = 0; i < v.length; i++) {
+    let dis = this.loc.distance(v[i].loc);
+    if (dis > 0 && dis < this.desiredSep) {
+      inc++;//increments ince to find average
+      let dif = JSVector.subGetNew(v[i].loc,this.loc);
+      sum.add(dif);
+    }
+  }
+  sum.divide(inc);//gets the average
+  let separationForce = sum.copy();
   // A vector for average of separation forces
   return separationForce;
 }
 
 Vehicle.prototype.align = function (v) {
+  let sum = new JSVector(0,0);
+  let inc;
+  for (let i = 0; i < v.length; i++) {
+    //let dis = this.loc.distance(v[i].loc);//gets the distance so it isnt aligning with flocks from far away
+    inc++;
+    sum.add(v[i].vel);
+  }
+  sum.divide(inc);
+  sum.setMagnitude(this.maxSpeed);
+  let steeringForce = sum.copy();
   // A vector for average of align forces
   return steeringForce;
 }
 
 Vehicle.prototype.cohesion = function (v) {
-   // A vector for average of cohesion forces
+  let sum = new JSVector(0, 0);
+  let inc;
+  for (let i = 0; i < v.length; i++) {
+    let dis = this.loc.distance(v[i].loc);
+    if (dis > 0 && dis < this.desiredSep) {
+      inc++;//increments ince to find average
+      sum.add(v[i].loc);
+    }
+  }
+  sum.divide(inc);//gets the average
+  let cohesionForce = sum.copy();
+  // A vector for average of cohesion forces
   return cohesionForce;
 }
 
-Vehicle.prototype.seek = function(target) {
+Vehicle.prototype.seek = function (target) {
+  //this.maxSpeed
+  let seek = JSVector.subGetNew(target, this.loc);
+  seek.setMagnitude(this.maxSpeed);
+  let steeringForce = JSVector.subGetNew(seek, this.vel);
   // A vector pointing from the location to the target
-  return steeringForce;
+  return steeringForce;//this should be added 
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
 
@@ -72,10 +109,10 @@ Vehicle.prototype.update = function () {
 }
 
 Vehicle.prototype.checkEdges = function () {
-  if(this.loc.x > world.canvas.width) this.loc.x = 0;
-  if(this.loc.x < 0) this.loc.x = world.canvas.width;
-  if(this.loc.y > world.canvas.height) this.loc.y = 0;
-  if(this.loc.y < 0) this.loc.y = world.canvas.height;
+  if (this.loc.x > world.canvas.width) this.loc.x = 0;
+  if (this.loc.x < 0) this.loc.x = world.canvas.width;
+  if (this.loc.y > world.canvas.height) this.loc.y = 0;
+  if (this.loc.y < 0) this.loc.y = world.canvas.height;
 }
 
 Vehicle.prototype.render = function () {

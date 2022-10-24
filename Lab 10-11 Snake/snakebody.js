@@ -37,10 +37,11 @@ sBody.prototype.update = function (upperLoc, mag) {
     this.vel.limit(mag - 0.5);
 
     if (this.loc.distance(upperLoc) < 10) {//makes sure that the bodies are a sufficient distance fron the head/next link
-        this.vel.setMagnitude(this.vel.getMagnitude() - 0.5)
+        this.vel.setMagnitude(this.vel.getMagnitude() - 0.5);//brakes the code if not in for some reason
+
     }
-    if (this.loc.distance(upperLoc) > 30) {
-        this.vel.setMagnitude(this.vel.getMagnitude() + 1)
+    if (this.loc.distance(upperLoc) > 40) {
+        this.vel.setMagnitude(this.vel.getMagnitude() + 1);
     }
     this.loc.add(this.vel);
 }
