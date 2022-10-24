@@ -14,24 +14,20 @@ sBody.prototype.render = function (upperLoc) {
     //Circle Rendering
     this.ctx1.beginPath();//draws body on the main cnavas
     this.ctx1.arc(this.loc.x, this.loc.y, this.size, 0, Math.PI * 2);
-    this.ctx1.closePath();
     this.ctx1.fill();
     this.ctx1.stroke();
     this.ctx2.beginPath();//draws body on the minimap
     this.ctx2.arc(this.loc.x, this.loc.y, this.size, 0, Math.PI * 2);
-    this.ctx2.closePath();
     this.ctx2.fill();
     this.ctx2.stroke();
     //Line Rendering
     this.ctx1.beginPath();
     this.ctx1.moveTo(this.loc.x, this.loc.y);
     this.ctx1.lineTo(upperLoc.x, upperLoc.y);
-    this.ctx1.closePath();
     this.ctx1.stroke();
     this.ctx2.beginPath();
     this.ctx2.moveTo(this.loc.x, this.loc.y);
     this.ctx2.lineTo(upperLoc.x, upperLoc.y);
-    this.ctx2.closePath();
     this.ctx2.stroke();
 
 }
