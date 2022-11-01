@@ -40,7 +40,7 @@ Vehicle.prototype.flock = function (vehicles) {
   // //  add each of these to flockForce
   flockForce.add(sep);
   //flockForce.add(ali);
-  flockForce.add(coh);
+  //flockForce.add(coh);
   this.applyForce(flockForce);//adds to acceleration
 }
 //+++++++++++++++++++++++++++++++++  Flocking functions
@@ -50,6 +50,7 @@ Vehicle.prototype.applyForce = function (force) {
 
 Vehicle.prototype.separate = function () {
   // A vector for average of separation forces
+  let separationForce = new JSVector(0,0);
   let v = world.vehicles;
   let ds = this.desiredSep * this.desiredSep;//this is the desired distance squared
   let sum = new JSVector(0, 0);
@@ -74,10 +75,11 @@ Vehicle.prototype.separate = function () {
     steer = JSVector.subGetNew(sum, this.vel);
     steer.limit(this.maxForce);//makes sure that you dont exceed the max speed.
     //this.acc.add(steer);
+    separationForce = steer.copy();
   }
   //}
   
-  let separationForce = steer.copy();
+  
   return separationForce;
 }
 
