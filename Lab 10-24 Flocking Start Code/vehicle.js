@@ -31,6 +31,8 @@ Vehicle.prototype.flock = function () {
   let ali = this.align();
   let coh = this.cohesion();
   //  set multiples via sliders 
+  this.maxSpeed = document.getElementById("slider2").value;  // %%%%%%%%%%%%%%%%%
+  this.maxForce = document.getElementById("slider1").value;  // %%%%%%%%%%%%%%%%%
   let sepMult = document.getElementById("slider3").value; // %%%%%%%%%%%%%%%%%%
   let aliMult = document.getElementById("slider4").value;  // %%%%%%%%%%%%%%%%%%
   let cohMult = document.getElementById("slider5").value;    // %%%%%%%%%%%%%%%%%%
@@ -80,7 +82,7 @@ Vehicle.prototype.align = function () {
   let count = 0;
   for (let i = 0; i < v.length; i++) {
     let dS = this.loc.distanceSquared(v[i].loc);
-    if (dS>0 && dS < Math.pow(this.desiredCoh)) {
+    if (dS>0 && dS < Math.pow(this.desiredCoh,2)) {
       count++;
       sum.add(v[i].vel);//adds velocity since it contains direciton
     }
@@ -134,10 +136,12 @@ Vehicle.prototype.seek = function (target) {
 
 Vehicle.prototype.update = function () {
   this.flock();
+  this.acc.limit(this.maxForce);
   this.vel.add(this.acc);
+  this.acc = new JSVector();
   this.vel.limit(1);
   this.loc.add(this.vel);
-
+  
 }
 
 Vehicle.prototype.checkEdges = function () {
