@@ -2,7 +2,7 @@ function World() {
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d'); // This is the context
     this.vehicles = [];
-    this.loadVehicles(111);
+    this.loadVehicles(120);
     // setup 6 sliders
     let updateSlider = function (e) {    // update event handler
         e.target.display.textContent = e.target.value;
