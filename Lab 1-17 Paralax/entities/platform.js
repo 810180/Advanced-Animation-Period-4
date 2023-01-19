@@ -14,5 +14,10 @@ Platform.prototype.checkHero = function(){
 Platform.prototype.render = function(){
     ctx.beginPath();
     ctx.moveTo(this.loc.x,this.loc.y);
+    ctx.lineTo();
+    ctx.fillStyle = "red";
+    ctx.strokeStyle = "green";
+    ctx.stroke();
+    ctx.fill();
 
 }
