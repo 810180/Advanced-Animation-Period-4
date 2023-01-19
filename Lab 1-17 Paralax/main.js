@@ -10,7 +10,7 @@ function init(){
   //sets the gamestate to 0 to start the game
   canvas = document.createElement('canvas');
   canvas.style.border = 'solid black 2px';
-  canvas.style.backgroundColor = 'rgba(0,0,0, .95)';
+  //canvas.style.backgroundColor = 'rgba(0,0,0, .95)';
   canvas.width = 1096;  // 800 - 4 for the border
   canvas.height = 696; // 700 - 4 for the border
   ctx = canvas.getContext('2d'); // This is the context
@@ -26,5 +26,3 @@ function animate(){
   game.update()
   requestAnimationFrame(animate);
 }
-
-  
