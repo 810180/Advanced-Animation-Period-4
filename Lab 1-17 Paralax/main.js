@@ -21,8 +21,25 @@ function init(){
 
 
 function animate(){
-  ctx.fillStyle = 'rgba(0,0,0,.05)'
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  //ctx.fillStyle = 'rgba(0,0,0,.05)'
   //ctx.fillRect(0,0,canvas.width,canvas.height); 
   game.update()
   requestAnimationFrame(animate);
 }
+window.addEventListener("keypress", function (event) {
+  switch (event.code) {
+    //  What is "this" inside of the listener????????????????????
+    
+    case "KeyA":
+      console.log("wrghdbwrqtn");
+      if (game.camLoc.x + 100 > game.dims.left)
+        game.camLoc.x -= 20;
+      break;
+    case "KeyD":
+      if (game.camLoc.x + game.dims.width - 100 < game.dims.right)
+        game.camLoc.x += 20;
+      break;
+      break;
+  }
+}, false);
