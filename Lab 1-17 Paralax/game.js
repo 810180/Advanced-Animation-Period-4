@@ -15,21 +15,24 @@ class Game{
       //entities loaded below
       this.platform = [];
       this.hero = new Hero();
+      this.loadPlatforms();
     }
     loadPlatforms = function(){
-      this.platform[0] = new Platform(400,450,100,"white")
+      this.platform[0] = new Platform(400,450,1000,"white")
     }
+    loadHero = function(){
 
+    }
     update = function(){
       //ctx is global
       //clearing is dealt with by the main functoin
       ctx.save();
       ctx.translate(-this.camLoc.x,-this.camLoc.y);
+      //all coordinates are in relation to world x,y this makes it so that the camera properly renders them
       //run platforms
       for(let i = 0; i <this.platform.length;i++){
         this.platform[i].run();
       }
-      //sets the world to the cameras locations
       ctx.restore();
     }
 }//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  End of game class
