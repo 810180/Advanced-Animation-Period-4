@@ -10,13 +10,27 @@ function Platform(x,y,width,clr){
 }
 Platform.prototype.run = function(){
     this.render();
+    this.checkHero();
+    this.manageEnemies();
+    this.managePickups();
 }
 Platform.prototype.checkHero = function(){
 if(game.hero.loc.y>=this.loc.y && game.hero.loc.y<this.loc.y+10){
-    //there is a certain range where the hero can rest on the platform
+    //makes sure that the hero is above the platform
+    if(game.hero.loc.x>this.loc.x && game.her.loc.x<(this.loc.x+this.size)){
+        //if the hero is btweel left and right edges of the platform
+        game.hero.sttBlk.falling = false;
+        game.hero.sttBlk.onPlatform = true;
+    } else {
+        game.hero.sttBlk.falling = true;
+        game.hero.sttBlk.onPlatform = false;
+    }
 }
 }
 Platform.prototype.manageEnemies = function(){
+
+}
+Platform.prototype.managePickups = function(){
 
 }
 Platform.prototype.render = function(){

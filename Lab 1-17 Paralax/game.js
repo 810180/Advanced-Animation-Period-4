@@ -14,7 +14,7 @@ class Game {
     }
     //entities loaded below
     this.platform = [];
-    this.hero = new Hero();
+    this.hero = new Hero(canvas.width/2,100);
     this.loadPlatforms();
   }
   loadPlatforms = function () {
@@ -33,6 +33,7 @@ class Game {
     for (let i = 0; i < this.platform.length; i++) {
       this.platform[i].run();
     }
+    this.hero.run(this.camLoc.x+(canvas.width/2));
     ctx.restore();
   }
 }//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  End of game class
