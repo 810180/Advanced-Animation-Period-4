@@ -17,10 +17,15 @@ Platform.prototype.run = function(){
 Platform.prototype.checkHero = function(){
 if(game.hero.loc.y>=this.loc.y && game.hero.loc.y<this.loc.y+10){
     //makes sure that the hero is above the platform
-    if(game.hero.loc.x>this.loc.x && game.her.loc.x<(this.loc.x+this.size)){
+    if(game.hero.loc.x>this.loc.x && game.hero.loc.x<(this.loc.x+this.size)){
         //if the hero is btweel left and right edges of the platform
         game.hero.sttBlk.falling = false;
         game.hero.sttBlk.onPlatform = true;
+        if(game.hero.vel.y >0){
+            //needs ifstatement to keep it from stopping the jump
+            game.hero.vel.y =0;//sets the velocity to 0 so it doesnt fall thru the platform
+        }
+        
     } else {
         game.hero.sttBlk.falling = true;
         game.hero.sttBlk.onPlatform = false;

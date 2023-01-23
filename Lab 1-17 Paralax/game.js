@@ -9,7 +9,7 @@ class Game {
       bottom: 600,
       left: 0,
       right: 1000,
-      width: 1000,
+      width: 2000,
       height: 600
     }
     //entities loaded below
@@ -33,7 +33,8 @@ class Game {
     for (let i = 0; i < this.platform.length; i++) {
       this.platform[i].run();
     }
-    this.hero.run(this.camLoc.x+(canvas.width/2));
+    this.hero.run((-this.camLoc.x)+(canvas.width/2));
+    //sets the hero's location to the middle of the screen
     ctx.restore();
   }
 }//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  End of game class

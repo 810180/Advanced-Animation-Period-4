@@ -29,17 +29,17 @@ function animate(){
 }
 window.addEventListener("keypress", function (event) {
   switch (event.code) {
-    //  What is "this" inside of the listener????????????????????
-    
     case "KeyA":
-      console.log("wrghdbwrqtn");
-      if (game.camLoc.x + 100 > game.dims.left)
+      if (game.camLoc.x+100 > game.dims.left)
         game.camLoc.x -= 20;
       break;
     case "KeyD":
-      if (game.camLoc.x + game.dims.width - 100 < game.dims.right)
+      if (game.camLoc.x + canvas.width -100 < game.dims.right)
         game.camLoc.x += 20;
       break;
+    case "KeyW":
+      game.hero.acc.y -=1;
       break;
+    //left and right cam movements
   }
 }, false);
