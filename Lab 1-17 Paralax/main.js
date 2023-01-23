@@ -31,15 +31,20 @@ window.addEventListener("keypress", function (event) {
   switch (event.code) {
     case "KeyA":
       if (game.camLoc.x+100 > game.dims.left)
-        game.camLoc.x -= 20;
+        game.camLoc.x -= 2;
       break;
     case "KeyD":
       if (game.camLoc.x + canvas.width -100 < game.dims.right)
-        game.camLoc.x += 20;
+        game.camLoc.x += 2;
       break;
     case "KeyW":
+      console.log("key registered");
       if(game.hero.sttBlk.onPlatform){
+        console.log("on platform");
+        game.hero.sttBlk.onPlatform = false;
+        game.hero.sttBlk.falling = true;
         game.hero.acc.y =-.75;
+        game.hero.loc.y +=10;
       }
       break;
     //left and right cam movements

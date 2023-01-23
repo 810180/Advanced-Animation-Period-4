@@ -14,7 +14,7 @@ class Game {
     }
     //entities loaded below
     this.platform = [];
-    this.hero = new Hero(canvas.width/2,100);
+    this.hero = new Hero(canvas.width/2,250);
     this.loadPlatforms();
   }
   loadPlatforms = function () {
