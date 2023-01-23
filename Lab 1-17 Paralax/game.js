@@ -8,7 +8,7 @@ class Game {
       top: 0,
       bottom: 600,
       left: 0,
-      right: 1000,
+      right: 2000,
       width: 2000,
       height: 600
     }
@@ -18,7 +18,8 @@ class Game {
     this.loadPlatforms();
   }
   loadPlatforms = function () {
-    this.platform[0] = new Platform(canvas.width/2-50, canvas.height/2, 100, "white")
+    this.platform[0] = new Platform(canvas.width/2-50, canvas.height/2, 100, "white");
+    this.platform[1] = new Platform(canvas.width/2+100, canvas.height/2, 100, "black");
   }
   loadHero = function () {
 
@@ -33,7 +34,8 @@ class Game {
     for (let i = 0; i < this.platform.length; i++) {
       this.platform[i].run();
     }
-    this.hero.run((-this.camLoc.x)+(canvas.width/2));
+    this.hero.run((this.camLoc.x)+(canvas.width/2));
+    //this works dont tuch
     //sets the hero's location to the middle of the screen
     ctx.restore();
   }

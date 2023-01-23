@@ -38,7 +38,9 @@ window.addEventListener("keypress", function (event) {
         game.camLoc.x += 20;
       break;
     case "KeyW":
-      game.hero.acc.y -=1;
+      if(game.hero.sttBlk.onPlatform){
+        game.hero.acc.y =-.75;
+      }
       break;
     //left and right cam movements
   }

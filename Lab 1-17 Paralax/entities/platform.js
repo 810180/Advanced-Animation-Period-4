@@ -15,7 +15,7 @@ Platform.prototype.run = function(){
     this.managePickups();
 }
 Platform.prototype.checkHero = function(){
-if(game.hero.loc.y>=this.loc.y && game.hero.loc.y<this.loc.y+10){
+if(game.hero.loc.y>=this.loc.y && game.hero.loc.y<(this.loc.y+10)){
     //makes sure that the hero is above the platform
     if(game.hero.loc.x>this.loc.x && game.hero.loc.x<(this.loc.x+this.size)){
         //if the hero is btweel left and right edges of the platform
@@ -44,7 +44,8 @@ Platform.prototype.render = function(){
     ctx.lineTo(this.loc.x+this.size,this.loc.y);//top right
     ctx.lineTo(this.loc.x+this.size,this.loc.y+this.height);
     ctx.lineTo(this.loc.x,this.loc.y+this.height);//bottom left
-    ctx.fillStyle = "red";
+    ctx.closePath();
+    ctx.fillStyle = this.clr;
     ctx.strokeStyle = "green";
     ctx.stroke();
     ctx.fill();
