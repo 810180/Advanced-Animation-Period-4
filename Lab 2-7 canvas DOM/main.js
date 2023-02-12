@@ -2,12 +2,14 @@
 
 // global variables for canvas and context
 var game, canvas, ctx;
-var goal = "It can now write entire sentences!!";
-var ltrs = [".","a","b","c","d","e","f","g","h","i","j","k","i","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," ", "A", "B", "C", "D", "E","F", "G", "H", "I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z", "!", ",", "'", "\"", "@"];
+var goal = "Boom!!";
+var ltrs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\",.-1234567890`~';:<>/!@#$%^&*()[]-=_+{}\\ ";
 var cLtr, compTxt;//current letter and all compiled text
 window.onload = init;//  After the window has been loaded, go to init
 
 function init(){
+  this.counting = 10;
+  this.increment = 60;
   cLtr = 0;
   compTxt = "";
   canvas = document.createElement('canvas');
@@ -17,11 +19,13 @@ function init(){
   canvas.height = 696; // 700 - 4 for the border
   ctx = canvas.getContext('2d'); // This is the context
   game = new Game();
+  //creates the text within the test div
   document.getElementById("testDiv").innerHTML = "test";
   animate();
 }
 
 function animate(){
+  //the text is then overwritted by this code
   if(cLtr < goal.length){
     let random = ltrs[Math.floor(Math.random()*ltrs.length)];
     if(goal[cLtr] == random){
@@ -31,6 +35,14 @@ function animate(){
     document.getElementById("testDiv").innerHTML = compTxt + random;
   } else {
     document.getElementById("testDiv").innerHTML = compTxt;
+    document.getElementById("countdown").innerHTML = this.counting;
+    this.increment--;
+    if(this.increment <= 0 && this.counting >=0){
+      this.increment = 60;
+      this.counting--;
+    } else if(this.counting < 0){
+      this.counting = "Boom"
+    }
   }
   
   
