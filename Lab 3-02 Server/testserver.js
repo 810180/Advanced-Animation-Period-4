@@ -12,3 +12,5 @@ server.on('request', (request, res) => {
 });
 
 server.listen(8000);
+
+console.log("server started on port 8000, press ctrl+c to terminate");
