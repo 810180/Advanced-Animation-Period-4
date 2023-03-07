@@ -1,0 +1,14 @@
+{
+  "name": "lab-3-02-server",
+  "version": "1.0.0",
+  "description": "Our first test server",
+  "main": "testserver.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tgillbrand",
+  "license": "ISC",
+  "dependencies": {
+    "mime": "^3.0.0"
+  }
+}
