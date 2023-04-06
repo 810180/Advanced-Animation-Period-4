@@ -5,7 +5,7 @@ window.addEventListener("load", init);
 let prisoners = [];
 let choices = [];
 let won = true;
-let loadAmount = 1000;
+let loadAmount = 100;
 let failed = 0;
 function init() {
     loadPrisoners(loadAmount);
@@ -69,5 +69,3 @@ function runPrisoners(n) {
 function returnAnswer() {
     console.log(won + " " + ((failed/loadAmount)*100) + "% failed");
 }
-
-
